@@ -1,0 +1,13 @@
+{% extends 'layout/layout.html' %}
+{% block bodyblock %}
+    <div class="col-6">
+    <form method="POST">
+        {% csrf_token %}
+        {{form}}
+        <input type="submit" value="Register"/>
+    </form>
+    {% if msg %}
+        <h3>{{msg}}</h3>
+    {% endif %}
+    </div>
+{% endblock %}

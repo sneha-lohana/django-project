@@ -1,0 +1,13 @@
+{% extends 'layout/layout.html' %}
+{% block bodyblock %}
+<h5 class="card-title">{{object.title}}</h5>
+<h6 class="card-title">{{object.price}}</h6>
+{% include 'carts/addtocart.html' with in_cart=in_cart prodid=object.id %}
+{% if object.image %}
+    <img src="{{object.image.url}}" class="card-img-top" alt="{{object.title}}">
+{% endif %}
+<div class="card-body">
+<p class="card-text">{{object.createdDate|timesince}} ago</p>
+<p class="card-text">{{object.description|linebreaks}}</p>
+</div>
+{% endblock %}

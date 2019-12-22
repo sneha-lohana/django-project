@@ -1,0 +1,21 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Hello, world!</title>
+    {% include 'layout/js.html' %}
+    {% include 'layout/css.html' %}
+  </head>
+    <body>
+        <div class="container">
+            {% include 'layout/header.html' %}
+            {% include 'layout/menu.html' %}
+            {% block bodyblock %}
+            {% endblock %}
+            {% include 'layout/footer.html' %}
+        </div>
+    </body>
+</html>

@@ -1,0 +1,17 @@
+{% extends 'layout/layout.html' %}
+{% block bodyblock %}
+    <div class="container">
+        <div class="row">
+        {% for obj in object_list %}
+            <div class="col-4">
+                {% include 'products/snippets/card.html' with product=obj %}
+            </div>
+                {% if forloop.counter|divisibleby:3 %}
+                    </div>
+                    <div class="row"><div class="col"><hr/></div></div>
+                    <div class="row">
+                {% endif %}
+        {% endfor %}    
+        </div>
+    </div>
+{% endblock %}

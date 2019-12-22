@@ -1,0 +1,13 @@
+<div class="card" style="width: 18rem;">
+    {% if product %}
+        {% if product.image %}
+            <img src="{{product.image.url}}" class="card-img-top" alt="{{product.title}}">
+        {% endif %}
+        <div class="card-body">
+        <h5 class="card-title">{{product.title}}</h5>
+        <p class="card-text">{{product.createdDate|timesince}} ago</p>
+        <p class="card-text">{{product.description|truncatewords:15}}</p>
+        <a href="{{product.get_absoulte_url}}" class="btn btn-primary">View</a>
+        </div>
+    {% endif %}
+  </div>
