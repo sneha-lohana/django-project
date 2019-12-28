@@ -20,6 +20,7 @@
       <li class="nav-item">
         <a class="nav-link" href="{% url 'cart:list' %}">
           <i class="fa fa-shopping-cart" ></i>
+          <span><sup>{{request.session.cart_count}}</sup></span>
         </a>
       </li>
       {% if request.user.is_authenticated %}

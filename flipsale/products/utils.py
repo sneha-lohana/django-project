@@ -9,6 +9,16 @@ def random_string_generator(size=10, chars=string.ascii_lowercase + string.digit
     #     s = s+random.choice(chars)
     # return s
 
+def unique_orderid_generator(instance, new_orderid=None):
+    Klass = instance.__class__
+    orderid = random_string_generator().upper()
+    check = Klass.objects.filter(order_id=orderid).exists()
+    if check:
+        new_orderid = "{}{}".format(orderid,random_string_generator(size=1))
+        return unique_orderid_generator(instance, new_orderid=new_orderid)
+    return orderid
+
+
 def unique_slug_generator(instance, new_slug=None):
     if new_slug is not None:
         slug = new_slug

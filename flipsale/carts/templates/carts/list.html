@@ -25,6 +25,10 @@
                 <td>{{cart_obj.total}}</td>
             </tr>
         </table>
+        <form method="POST" action="{% url 'order:create' %}">
+            {% csrf_token %}
+            <input type="submit" value="Order Now" class="btn btn-success"/>
+        </form>
     {% else %}
     <h1>Cart is empty</h1>
     {% endif %}

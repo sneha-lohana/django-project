@@ -9,9 +9,15 @@ class CartManager(models.Manager):
         cartid = request.session.get('cartid' or None)
         if cartid:
             cart_obj = Cart.objects.filter(id=cartid).first()
+        elif request.user.is_authenticated:
+            cart_obj = Cart.objects.filter(user=request.user).first() or None
+            if cart_obj is None:
+                cart_obj = Cart.objects.create(user=request.user)
+            request.session['cartid']=cart_obj.id
         else:
             cart_obj = Cart.objects.create()
             request.session['cartid']=cart_obj.id
+        request.session['cart_count'] = cart_obj.products.all().count()
         return cart_obj
 
 class Cart(models.Model):

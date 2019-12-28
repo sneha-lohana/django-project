@@ -35,7 +35,7 @@ def register_page(request):
     
     context = {'form': reg_form}
     if reg_form.is_valid():
-        print(password=reg_form.cleaned_data.get('pwd'))
+        # print(password=reg_form.cleaned_data.get('pwd'))
         user = User.objects.create_user(username=reg_form.cleaned_data.get('username'),
         password=reg_form.cleaned_data.get('pwd'),
         email=reg_form.cleaned_data.get('email'), first_name=reg_form.cleaned_data.get('firstName'),
