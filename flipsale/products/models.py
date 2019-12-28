@@ -1,6 +1,8 @@
 from django.db import models
 from django.urls import reverse
 from django.db.models import Q
+from django.db.models.signals import pre_save
+from .utils import unique_slug_generator
 
 class ProductQuerySet(models.query.QuerySet):
     def active(self):
@@ -26,6 +28,7 @@ class ProductManager(models.Manager):
 
 class Product(models.Model):
     title = models.CharField(unique=True, max_length=50)
+    slug = models.SlugField(null=True, blank=True)
     price = models.DecimalField(decimal_places=2, max_digits=10, default=10)
     description = models.TextField()
     image = models.ImageField(null=True, blank=True)
@@ -39,4 +42,10 @@ class Product(models.Model):
         return self.title
     
     def get_absoulte_url(self):
-        return reverse("product:detail",kwargs={'pk':self.id})
+        # return reverse("product:detail",kwargs={'pk':self.id})
+        return reverse("product:detail", kwargs={'slug':self.slug})
+
+def product_slug_pre_save_receiver(sender, instance, *args, **kwargs):
+    instance.slug = unique_slug_generator(instance)
+
+pre_save.connect(product_slug_pre_save_receiver, sender=Product)
