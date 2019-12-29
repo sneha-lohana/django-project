@@ -1,0 +1,27 @@
+{% extends 'layout/layout.html' %}
+{% block bodyblock %}
+{% if ord_obj %}
+    <h1>{{ord_obj.order_id}}</h1>
+    <h1>Subtotal = {{ord_obj.order_total}}</h1>
+    <h1>Total = {{ord_obj.total}}</h1>
+    {% if ord_obj.address %}
+        {{ ord_obj.address.get_address|linebreaks }}
+    {% else %}
+        <div class="row">
+            <div class="col-6">
+                {% include 'addresses/addAddress.html' with addressForm=address next_url=request.build_absolute_uri %}
+            </div>
+            <div class="col-6">
+                Existing Addresses
+            </div>
+        </div>
+    {% endif %}
+{% elif not request.user.is_authenticated %}
+    <form method="POST" action="{% url 'login' %}">
+        {% csrf_token %}
+        {{loginform.as_p}} 
+        <input type="hidden" name="next_url" value="{{ request.build_absolute_uri }}"/>
+        <input type="submit" value="Login" class="btn btn-success" />
+    </form>
+{% endif %}
+{% endblock %}

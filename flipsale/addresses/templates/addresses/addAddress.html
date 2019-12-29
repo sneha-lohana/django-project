@@ -1,0 +1,6 @@
+<form method="POST" action="{% url 'address:create' %}">
+    {% csrf_token %}
+    {{addressForm}}
+    <input type="hidden" name="next_url" value="{{next_url}}" />
+    <input type="submit" value="Submit" class="btn btn-success" />
+</form>

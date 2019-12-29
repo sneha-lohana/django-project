@@ -32,7 +32,8 @@ urlpatterns = [
     path("product/", include(('products.urls', 'products'), namespace="product")),
     path("cart/", include(('carts.urls', 'carts'), namespace="cart")),
     path("search/", SearchProductList.as_view(), name="search"),
-    path("order/", include(('orders.urls', 'orders'), namespace="order"))
+    path("order/", include(('orders.urls', 'orders'), namespace="order")),
+    path("address/", include(('addresses.urls', 'addresses'), namespace="address"))
 ]
 
 if settings.DEBUG:

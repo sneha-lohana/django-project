@@ -2,14 +2,15 @@ from django.shortcuts import render, redirect
 from .forms import RegisterForm, LoginForm
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
-
-# Create your views here.
+from django.utils.http import is_safe_url
 
 def logout_page(request):
     logout(request)
     return redirect("home")
 
 def login_page(request):
+    next_post = request.POST.get("next_url")
+    redirect_path = next_post or None
     loginform = LoginForm(request.POST or None)
     context = {'form':loginform}
     if loginform.is_valid():
@@ -20,6 +21,9 @@ def login_page(request):
         print(user)
         if user:
             login(request, user)
+            if redirect_path:
+                if is_safe_url(redirect_path, request.get_host()):
+                    return redirect(redirect_path)
             return redirect("home")
         context['errmsg'] = "Invalid Credentials"
     return render(request, "accounts/login.html", context)
