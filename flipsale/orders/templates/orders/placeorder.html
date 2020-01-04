@@ -13,6 +13,7 @@
             </div>
             <div class="col-6">
                 Existing Addresses
+                {% include 'addresses/selectAddress.html' with addList=add_list next_url=request.build_absolute_uri %}
             </div>
         </div>
     {% endif %}

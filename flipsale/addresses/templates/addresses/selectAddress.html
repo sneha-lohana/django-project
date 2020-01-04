@@ -1,0 +1,8 @@
+<form method="POST" action="{% url 'address:attach' %}">
+    {% csrf_token %}
+    {% for add in addList %}
+        <input type="radio" name="add_detail" value="{{add.id}}"/>{{add.get_address|linebreaks}} <br/>
+    {% endfor %}
+    <input type="hidden" name="next_url" value="{{next_url}}" />
+    <input type="submit" value="Select Address"/>
+</form> 
