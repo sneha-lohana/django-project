@@ -1,8 +1,11 @@
 from django.shortcuts import render, redirect
 from .forms import RegisterForm, LoginForm
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.utils.http import is_safe_url
+
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 def logout_page(request):
     logout(request)
@@ -14,7 +17,7 @@ def login_page(request):
     loginform = LoginForm(request.POST or None)
     context = {'form':loginform}
     if loginform.is_valid():
-        un = loginform.data.get('username')
+        un = loginform.data.get('email')
         pwd = loginform.data.get('pwd')
         # print(un, pwd)
         user = authenticate(username=un, password=pwd)
@@ -40,10 +43,10 @@ def register_page(request):
     context = {'form': reg_form}
     if reg_form.is_valid():
         # print(password=reg_form.cleaned_data.get('pwd'))
-        user = User.objects.create_user(username=reg_form.cleaned_data.get('username'),
-        password=reg_form.cleaned_data.get('pwd'),
-        email=reg_form.cleaned_data.get('email'), first_name=reg_form.cleaned_data.get('firstName'),
-        last_name=reg_form.cleaned_data.get('lastName'))
+        user = User.objects.create_user(email=reg_form.data.get('email'),
+        password=reg_form.data.get('pwd'),
+        full_name=reg_form.data.get('fullName'),
+        mobile=reg_form.data.get('mobile'))
         if user:
             context['reg_form'] = RegisterForm()
             context['msg'] = "User created successfully."

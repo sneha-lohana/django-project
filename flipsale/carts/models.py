@@ -1,8 +1,11 @@
 from django.db import models
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
 from products.models import Product
 from django.db.models.signals import pre_save, post_save, m2m_changed
 from decimal import Decimal
+
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 class CartManager(models.Manager):
     def new_or_get(self, request):

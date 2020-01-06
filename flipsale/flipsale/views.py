@@ -6,7 +6,7 @@ def home_page(request):
     'title': 'Hello World!',
     'data': "Welcome to Django class in Itvedant"}
   if request.user.is_authenticated:
-      context['user1'] = request.user
+      context['user1'] = request.user.get_full_name()
   return render(request, "home.html", context)
 
 def about_page(request):
