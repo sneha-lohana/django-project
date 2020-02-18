@@ -6,6 +6,7 @@ class ProductAdmin(admin.ModelAdmin):
     class Meta:
         model = Product
     
-    list_display = ['title', 'price']
+    list_display = ['title', 'price', 'slug']
+    search_fields = ['title', 'price', 'slug', 'description']
 
 admin.site.register(Product, ProductAdmin)

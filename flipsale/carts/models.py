@@ -11,9 +11,9 @@ class CartManager(models.Manager):
     def new_or_get(self, request):
         cartid = request.session.get('cartid' or None)
         if cartid:
-            cart_obj = Cart.objects.filter(id=cartid).first()
+            cart_obj = Cart.objects.filter(id=cartid, active=True).first()
         elif request.user.is_authenticated:
-            cart_obj = Cart.objects.filter(user=request.user).first() or None
+            cart_obj = Cart.objects.filter(user=request.user, active=True).first() or None
             if cart_obj is None:
                 cart_obj = Cart.objects.create(user=request.user)
             request.session['cartid']=cart_obj.id

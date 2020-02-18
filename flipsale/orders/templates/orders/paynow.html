@@ -1,0 +1,17 @@
+<form action="{% url 'order:success' %}" method="POST">
+    {% csrf_token %}
+    <script src="https://checkout.razorpay.com/v1/checkout.js" 
+    data-key="rzp_test_XDiInUIrJYACDo"     
+    data-amount="100"  
+    data-currency="INR"    
+    data-buttontext="Pay Now"    
+    data-name="Itvedant"    
+    data-description="Testing"    
+    data-image=""    
+    data-prefill.name="{{obj.billingProfile.user.full_name}}"    
+    data-prefill.email="{{obj.billingProfile.email}}"    
+    data-prefill.contact="{{obj.billingProfile.user.mobile}}"    
+    data-theme.color="#F37254"
+    data-notes.shopping_order_id="{{obj.order_id}}"></script>
+    <input type="hidden" name="orderid" value="{{obj.order_id}}">
+</form>

@@ -6,15 +6,18 @@
     <h1>Total = {{ord_obj.total}}</h1>
     {% if ord_obj.address %}
         {{ ord_obj.address.get_address|linebreaks }}
+        {% include 'orders/paynow.html' with obj=ord_obj %}
     {% else %}
         <div class="row">
             <div class="col-6">
                 {% include 'addresses/addAddress.html' with addressForm=address next_url=request.build_absolute_uri %}
             </div>
+            {% if add_list %}
             <div class="col-6">
                 Existing Addresses
                 {% include 'addresses/selectAddress.html' with addList=add_list next_url=request.build_absolute_uri %}
             </div>
+            {% endif %}
         </div>
     {% endif %}
 {% elif not request.user.is_authenticated %}

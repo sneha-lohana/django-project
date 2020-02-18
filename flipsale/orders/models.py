@@ -32,7 +32,8 @@ class Order(models.Model):
     status = models.CharField(max_length=20, default='created', choices=ORDER_STATUS_CHOICES)
     order_total = models.DecimalField(max_digits=8, decimal_places=2, default=0.0) #cart total
     total = models.DecimalField(max_digits=8, decimal_places=2,default=0.0)  # order_total + 18 % GST
-
+    razorpay_id = models.CharField(max_length=100, null=True, blank=True)
+    
     objects = OrderManager()
 
     def __str__(self):
